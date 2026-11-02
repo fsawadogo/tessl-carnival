@@ -1637,7 +1637,7 @@ export function archBounds(map: MidwayMap): Box {
   const y = map.height - 1;
   const left = toScreen(map.avenueX + ARCH_LEFT - 0.6, y + 0.3);
   const right = toScreen(map.avenueX + ARCH_RIGHT + 0.8, y - 0.3);
-  return { left: left.x, right: right.x, top: right.y - ARCH_HEIGHT - 26, bottom: left.y };
+  return { left: left.x, right: right.x, top: right.y - ARCH_HEIGHT - 42, bottom: left.y };
 }
 
 export function drawArch(ctx: Ctx, map: MidwayMap, t: number) {
@@ -1667,6 +1667,15 @@ export function drawArch(ctx: Ctx, map: MidwayMap, t: number) {
     ctx.beginPath();
     ctx.ellipse(0, -10, 12, 9, 0, Math.PI, Math.PI * 2);
     ctx.fill();
+    // A welcome board on top of the crest, so the gate reads as a greeting.
+    ctx.save();
+    ctx.translate(0, -31);
+    signBoard(ctx, 'WELCOME TO', 52, 11, {
+      board: palette.cream,
+      edge: palette.red,
+      text: palette.red,
+    });
+    ctx.restore();
     signBoard(ctx, "FAÏÇAL'S CARNIVAL", 92, 20, {
       board: palette.wood,
       edge: palette.woodDark,
